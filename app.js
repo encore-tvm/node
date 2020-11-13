@@ -1,21 +1,52 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const mysql = require('mysql');
+const express = require('express');
 
-const app = express();
+var app = express();
+const bodyparser = require('body-parser');
 
-// parse requests of content-type: application/json
-app.use(bodyParser.json());
+app.use(bodyparser.json());
 
-// parse requests of content-type: application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to my Web application." });
+const connection = mysql.createConnection({
+  host: 'mysqldb.citiucgqt1bu.ap-southeast-1.rds.amazonaws.com',
+  user: 'admin',
+  password: 'core2000',
+  database: 'studentdb'
 });
 
-// set port, listen for requests
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('DB Connected!');
+});
+
 const port = process.env.port || 3000;
-app.listen(port, () => {
-  console.log("Server is running on port 3000.");
+app.listen(port,()=>console.log('Express server is running at port: 3000'));
+
+// Get all students
+app.get('/students',(req, res)=> {
+    connection.query('select * from students',(err, rows, fields)=>{
+        if(!err)
+                res.send(rows);
+        else
+            console.log(err);
+    })
+});
+
+// Get a student details
+app.get('/students/:id',(req, res)=> {
+    connection.query('select * from students where id =?',[req.params.id],(err, rows, fields)=>{
+        if(!err)
+            res.send(rows);
+        else
+            console.log(err);
+    })
+});
+
+// Delete a student details
+app.delete('/students/:id',(req, res)=> {
+    connection.query('delete from students where id =?',[req.params.id],(err, rows, fields)=>{
+        if(!err)
+            res.send('Deleted successfully');
+        else
+            console.log(err);
+    })
 });
