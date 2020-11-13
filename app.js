@@ -14,8 +14,9 @@ const connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-  if (err) throw err;
+  if (err) res.json({ message: "DB Not Connected.." });
   console.log('DB Connected!');
+   res.json({ message: "DB Connected.." });
 });
 
 const port = process.env.port || 3000;
@@ -31,22 +32,3 @@ app.get('/students',(req, res)=> {
     })
 });
 
-// Get a student details
-app.get('/students/:id',(req, res)=> {
-    connection.query('select * from students where id =?',[req.params.id],(err, rows, fields)=>{
-        if(!err)
-            res.send(rows);
-        else
-            console.log(err);
-    })
-});
-
-// Delete a student details
-app.delete('/students/:id',(req, res)=> {
-    connection.query('delete from students where id =?',[req.params.id],(err, rows, fields)=>{
-        if(!err)
-            res.send('Deleted successfully');
-        else
-            console.log(err);
-    })
-});
