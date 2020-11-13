@@ -19,12 +19,9 @@ connection.connect((err) => {
   console.log('DB Connected!');
 });
 
-// parse requests of content-type: application/x-www-form-urlencoded
-//app.use(bodyParser.urlencoded({ extended: true }));
-
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Sunil John application." });
+  res.json({ message: "Welcome to Sunil John's application." });
 });
 
 // set port, listen for requests
@@ -32,3 +29,14 @@ const port = process.env.port || 3000;
 app.listen(port, () => {
   console.log("Server is running on port 3000.");
 });
+
+// Get all students
+app.get('/students',(req, res)=> {
+    connection.query('select * from students',(err, rows, fields)=>{
+        if(!err)
+                res.send(rows);
+        else
+            console.log(err);
+    })
+});
+
