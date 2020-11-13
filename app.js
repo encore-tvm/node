@@ -1,34 +1,21 @@
-const mysql = require('mysql');
-const express = require('express');
+const express = require("express");
+const bodyParser = require("body-parser");
 
-var app = express();
-const bodyparser = require('body-parser');
+const app = express();
 
-app.use(bodyparser.json());
+// parse requests of content-type: application/json
+app.use(bodyParser.json());
 
-const connection = mysql.createConnection({
-  host: 'mysqldb.citiucgqt1bu.ap-southeast-1.rds.amazonaws.com',
-  user: 'admin',
-  password: 'core2000',
-  database: 'studentdb'
+// parse requests of content-type: application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// simple route
+app.get("/", (req, res) => {
+    
 });
 
-connection.connect((err) => {
-  if (err) res.json({ message: "DB Not Connected.." });
-  console.log('DB Connected!');
-   res.json({ message: "DB Connected.." });
-});
-
+// set port, listen for requests
 const port = process.env.port || 3000;
-app.listen(port,()=>console.log('Express server is running at port: 3000'));
-
-// Get all students
-app.get('/students',(req, res)=> {
-    connection.query('select * from students',(err, rows, fields)=>{
-        if(!err)
-                res.send(rows);
-        else
-            console.log(err);
-    })
+app.listen(port, () => {
+  console.log("Server is running on port 3000.");
 });
-
