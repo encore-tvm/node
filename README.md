@@ -5,6 +5,9 @@ RESTFul API Implementation and continuous deployment
 
 REST API for student enrolment project for a school , Data in AWS RDS MySQL Database, Rest API is developed in Node.js
 
+## Hithub ->  AWS CodePine -> AWS BeanStalk ( NLB/AutoScaling/EC2/AWS RDS MySQL )
+
+
 **New student enrolment:**
 **Update student record:**
 **Delete student record**
@@ -16,6 +19,7 @@ REST API for student enrolment project for a school , Data in AWS RDS MySQL Data
 Use Postman to call the API ( for Insert/Update/Delete )
 
 http://node-env-1.eba-xnrkubim.ap-southeast-1.elasticbeanstalk.com/
+
 http://node-env-1.eba-xnrkubim.ap-southeast-1.elasticbeanstalk.com/students
 
 New record - POST reuquest using Postman
