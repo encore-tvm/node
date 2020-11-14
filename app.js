@@ -28,7 +28,8 @@ connection.connect((err) => {
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to REST API Students Enrolment System" });
+    //res.json({ message: "Welcome to REST API Students Enrolment System  <br/> Usage :" });
+    res.send( '<h2> Welcome to REST API Students Enrolment System </h2> <br/> Use /students to get full list of studnets <br/> /students/id? to get one student details, eg: /students/1001 ' );
 });
 
 // set port 3000, listen for requests
@@ -37,33 +38,59 @@ app.listen(port, () => {
     console.log("Server is running on port 3000.");
 });
 
-// Get all students details from database
+// // Rest API to get all records from Database
 app.get('/students',(req, res)=> {
     connection.query('select * from students',(err, rows, fields)=>{
-        if(!err) 
-            res.send(rows);
-        else
-            console.log(err);
+    if(!err) 
+        res.send(rows);
+    else
+        console.log(err);
     })
 });
 
-// Get a student details from DB
+//Rest API to get a single record
 app.get('/students/:id',(req, res)=> {
     connection.query('select * from students where id =?',[req.params.id],(err, rows, fields)=>{
-        if(!err)
-            res.send(rows);
-        else
-            console.log(err);
+    if(!err)
+        res.send(rows);
+    else
+        res.send(err);
+        console.log(err);
     })
 });
 
-// Delete a student details from DB
-app.delete('/students/:id',(req, res)=> {
-    connection.query('delete from students where id =?',[req.params.id],(err, rows, fields)=>{
-        if(!err)
-            res.send('Deleted successfully');
+//Rest API to create a new record into mysql database
+app.post('/students',(req, res)=> {
+    var postData = req.body;
+    connection.query('INSERT INTO students SET ?', postData, (err, rows, fields)=>{
+    if(!err)
+        res.end(JSON.stringify(rows));
+    else
+        //Return Error message
+        res.send(err);
+        console.log(err);
+    })
+});
+
+//rest api to update record into mysql database
+app.put('/students', (req, res) => {
+    connection.query('UPDATE `students` SET `class`=? where `id`=?', [req.body.class, req.body.id], (err, rows, fields)=>{
+        if (!err) 
+            res.end(JSON.stringify(rows)); 
         else
+            res.send(err);
             console.log(err);
+     });
+ });
+
+//rest api to delete record from mysql database
+app.delete('/students/:id',(req, res)=> {
+    var _id = req.params.id
+    connection.query('delete from students where id =?',[req.params.id],(err, rows, fields)=>{
+    if(!err)
+        res.send ('Deleted successfully - ID:'+ _id );
+    else
+        console.log(err);
     })
 });
 
