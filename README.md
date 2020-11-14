@@ -9,3 +9,5 @@ REST API for student enrolment project for a school , Data in AWS RDS MySQL Data
 **Update student record:**
 **Delete student record**
 ## Architecture
+
+![arch](https://user-images.githubusercontent.com/74394472/99143221-b9421e00-2696-11eb-85d6-04229d7b2587.JPG)
