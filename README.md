@@ -11,3 +11,19 @@ REST API for student enrolment project for a school , Data in AWS RDS MySQL Data
 ## Architecture
 
 ![arch](https://user-images.githubusercontent.com/74394472/99143221-b9421e00-2696-11eb-85d6-04229d7b2587.JPG)
+
+
+Use Postman to call the API ( for Insert/Update/Delete )
+
+http://node-env-1.eba-xnrkubim.ap-southeast-1.elasticbeanstalk.com/
+http://node-env-1.eba-xnrkubim.ap-southeast-1.elasticbeanstalk.com/students
+
+New record - POST reuquest using Postman
+{
+    "id":8888,
+    "firstName" : "Wsrty",
+    "lastName" : "ABC",
+    "class" : "P5",
+    "nationality" : "USA" 
+}
+
