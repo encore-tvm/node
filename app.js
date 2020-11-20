@@ -29,7 +29,7 @@ connection.connect((err) => {
 // simple route
 app.get("/", (req, res) => {
     //res.json({ message: "Welcome to REST API Students Enrolment System  <br/> Usage :" });
-    res.send( '<h2> Welcome to REST API Students Enrolment System </h2> <br/> Use /students to get full list of studnets <br/> /students/id? to get one student details, eg: /students/1001 ' );
+    res.send( '<h2> Hello Welcome to my Code Pipeline </h2> <br/> Use /students to get full list of studnets <br/> /students/id? to get one student details, eg: /students/1001 ' );
 });
 
 // set port 3000, listen for requests
